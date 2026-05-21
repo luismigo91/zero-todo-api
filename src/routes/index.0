@@ -1,0 +1,9 @@
+use std.json
+
+pub fun GET(req: Request) -> Response {
+    let payload = std.json.object()
+    std.json.putString(payload, "message", "todo api running")
+    std.json.putString(payload, "version", "0.2.0")
+    let body = std.json.serialize(payload)
+    return Response.json(body)
+}

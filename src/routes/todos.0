@@ -1,0 +1,35 @@
+use std.json
+
+pub fun GET(req: Request) -> Response {
+    let data = std.json.array()
+
+    let item1 = std.json.object()
+    std.json.putString(item1, "id", "1")
+    std.json.putString(item1, "title", "Aprender Zero")
+    std.json.putBool(item1, "done", false)
+    std.json.pushArray(data, item1)
+
+    let item2 = std.json.object()
+    std.json.putString(item2, "id", "2")
+    std.json.putString(item2, "title", "Crear una API")
+    std.json.putBool(item2, "done", false)
+    std.json.pushArray(data, item2)
+
+    let item3 = std.json.object()
+    std.json.putString(item3, "id", "3")
+    std.json.putString(item3, "title", "Dormir suficiente")
+    std.json.putBool(item3, "done", true)
+    std.json.pushArray(data, item3)
+
+    let body = std.json.serialize(data)
+    return Response.json(body)
+}
+
+pub fun POST(req: Request) -> Response {
+    let result = std.json.parse(req.body)
+    let response = std.json.object()
+    std.json.putString(response, "message", "todo created")
+    std.json.putString(response, "received", std.json.serialize(result))
+    let body = std.json.serialize(response)
+    return Response.json(body)
+}
